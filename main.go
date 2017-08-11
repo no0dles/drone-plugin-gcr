@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strings"
 	"os/exec"
+	"time"
 )
 
 func main() {
@@ -28,8 +29,9 @@ func main() {
 		os.Exit(1)
 	}
 
-	tags := strings.Split(tagList, ",")
+	StartDocker()
 
+	tags := strings.Split(tagList, ",")
 	args := []string{"build", "-f", dockerfile}
 	for _, tag := range tags {
 		args = append(args, "-t", fmt.Sprintf("%v/%v:%v", registry, repo, tag))
@@ -59,6 +61,22 @@ func GetParameter(name string, defaultValue string) string {
 
 func IsEmpty(parameter string) bool {
 	return len(parameter) == 0
+}
+
+func StartDocker() {
+	cmd := exec.Command("/usr/local/bin/dockerd")
+	go func() {
+		cmd.Run()
+	}()
+
+	for i := 0; i < 15; i++ {
+		cmd := exec.Command("docker", "info")
+		err := cmd.Run()
+		if err == nil {
+			break
+		}
+		time.Sleep(time.Second * 1)
+	}
 }
 
 func ExecuteCommand(name string, arg ...string) {

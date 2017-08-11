@@ -36,6 +36,19 @@ pipeline:
     secrets: [ GOOGLE_TOKEN ]
 ```
 
+## Performance boost
+To reuse dockers caching mount the docker socket into the container
+```
+pipeline:
+  publish:
+    image: no0dles/drone-plugin-gcr
+    repo: project-id/image-name
+    secrets: [ GOOGLE_TOKEN ]
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+```
+
+
 ## GOOGLE_TOKEN
 Docs about how to get it [here](https://cloud.google.com/container-registry/docs/advanced-authentication) and [here](https://support.google.com/cloud/answer/6158849#serviceaccounts)
 
