@@ -6,6 +6,7 @@
 pipeline:
   publish:
     image: no0dles/drone-plugin-gcr
+    privileged: true
     repo: project-id/image-name
     secrets: [ GOOGLE_TOKEN ]
 ```
@@ -26,6 +27,7 @@ pipeline:
 pipeline:
   publish:
     image: no0dles/drone-plugin-gcr
+    privileged: true
     repo: project-id/image-name
     registry: eu.gcr.io
     dockerfile: Dockerfile.prod
@@ -37,11 +39,12 @@ pipeline:
 ```
 
 ## Performance boost
-To reuse dockers caching mount the docker socket into the container
+To take advantage of dockers caching system, mount the docker socket into the container
 ```
 pipeline:
   publish:
     image: no0dles/drone-plugin-gcr
+    privileged: true
     repo: project-id/image-name
     secrets: [ GOOGLE_TOKEN ]
     volumes:
