@@ -1,0 +1,12 @@
+pipeline:
+  build:
+    image: drone-gcr
+    privileged: true
+    token: $GOOGLE_TOKEN
+    registry: eu.gcr.io
+    dockerfile: Dockerfile
+    repo: kubernetes-169708/drone-plugin-gcr
+    tags: [latest, master]
+    secrets: [GOOGLE_TOKEN]
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
