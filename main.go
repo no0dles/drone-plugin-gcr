@@ -8,11 +8,6 @@ import (
 )
 
 func main() {
-	for _, e := range os.Environ() {
-		pair := strings.Split(e, "=")
-		fmt.Println(pair[0])
-	}
-
 	token := GetParameter("GOOGLE_TOKEN", "")
 	repo := GetParameter("PLUGIN_REPO", "")
 

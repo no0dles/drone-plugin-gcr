@@ -3,7 +3,6 @@ pipeline:
     image: no0dles/drone-plugin-gcr
     privileged: true
     registry: eu.gcr.io
-    dockerfile: Dockerfile
     repo: kubernetes-169708/drone-plugin-gcr
     tags:
       - latest
