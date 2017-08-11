@@ -8,13 +8,13 @@ import (
 )
 
 func main() {
-	token := GetParameter("TOKEN", "")
-	repo := GetParameter("REPO", "")
+	token := GetParameter("GOOGLE_TOKEN", "")
+	repo := GetParameter("PLUGIN_REPO", "")
 
-	registry := GetParameter("REGISTRY", "gcr.io")
-	dockerfile := GetParameter("DOCKERFILE", "Dockerfile")
-	buildPath := GetParameter("BUILDPATH", ".")
-	tagList := GetParameter("TAGS", "latest")
+	registry := GetParameter("PLUGIN_REGISTRY", "gcr.io")
+	dockerfile := GetParameter("PLUGIN_DOCKERFILE", "Dockerfile")
+	buildPath := GetParameter("PLUGIN_BUILDPATH", ".")
+	tagList := GetParameter("PLUGIN_TAGS", "latest")
 
 	token = strings.TrimSpace(token)
 
@@ -50,7 +50,7 @@ func main() {
 }
 
 func GetParameter(name string, defaultValue string) string {
-	value := os.Getenv(fmt.Sprintf("PLUGIN_%v", name))
+	value := os.Getenv(name)
 	if len(value) == 0 {
 		return defaultValue
 	}

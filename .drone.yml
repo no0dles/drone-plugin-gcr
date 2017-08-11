@@ -2,7 +2,6 @@ pipeline:
   build:
     image: no0dles/drone-plugin-gcr
     privileged: true
-    token: $GOOGLE_TOKEN
     registry: eu.gcr.io
     dockerfile: Dockerfile
     repo: kubernetes-169708/drone-plugin-gcr
