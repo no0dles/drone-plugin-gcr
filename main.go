@@ -19,7 +19,7 @@ func main() {
 	token = strings.TrimSpace(token)
 
 	if IsEmpty(token) {
-		fmt.Println("Missing token parameter")
+		fmt.Println("Missing GOOGLE_TOKEN secret")
 		os.Exit(1)
 	}
 
