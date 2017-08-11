@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	token := GetParameter("GOOGLE_TOKEN", "")
+	token := GetParameter("PLUGIN_GOOGLE_TOKEN", "")
 	repo := GetParameter("PLUGIN_REPO", "")
 
 	registry := GetParameter("PLUGIN_REGISTRY", "gcr.io")
