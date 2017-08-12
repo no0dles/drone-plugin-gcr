@@ -16,6 +16,7 @@ func main() {
 	dockerfile := GetParameter("PLUGIN_DOCKERFILE", "Dockerfile")
 	buildPath := GetParameter("PLUGIN_BUILDPATH", ".")
 	tagList := GetParameter("PLUGIN_TAGS", "latest")
+	cacheFrom := GetParameter("PLUGIN_CACHE_FROM", "")
 
 	token = strings.TrimSpace(token)
 
@@ -33,6 +34,9 @@ func main() {
 
 	tags := strings.Split(tagList, ",")
 	args := []string{"build", "-f", dockerfile}
+	if !IsEmpty(cacheFrom) {
+		args = append(args, "--cache-from", fmt.Sprintf("%v/%v:%v", registry, repo, cacheFrom))
+	}
 	for _, tag := range tags {
 		args = append(args, "-t", fmt.Sprintf("%v/%v:%v", registry, repo, tag))
 	}

@@ -13,13 +13,14 @@ pipeline:
 
 ## Parameters
 
-| Name       | Required | Default    |
-| ---------- |:--------:| ----------:|
-| repo       | yes      | -          |
-| tags       | no       | latest     |
-| registry   | no       | gcr.io     |
-| dockerfile | no       | Dockerfile |
-| buildpath  | no       | .          |
+| Name        | Required | Default    |
+| ----------- |:--------:| ----------:|
+| repo        | yes      | -          |
+| tags        | no       | latest     |
+| registry    | no       | gcr.io     |
+| dockerfile  | no       | Dockerfile |
+| buildpath   | no       | .          |
+| cache_from  | no       | -          |
 
 ## Full Example
 
@@ -32,25 +33,12 @@ pipeline:
     registry: eu.gcr.io
     dockerfile: Dockerfile.prod
     buildpath: /build
+    cache_from: latest
     tags:
       - latest
       - ${DRONE_COMMIT}
     secrets: [ GOOGLE_TOKEN ]
 ```
-
-## Performance boost
-To take advantage of dockers caching system, mount the docker socket into the container
-```
-pipeline:
-  publish:
-    image: no0dles/drone-plugin-gcr
-    privileged: true
-    repo: project-id/image-name
-    secrets: [ GOOGLE_TOKEN ]
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-```
-
 
 ## GOOGLE_TOKEN
 Docs about how to get it [here](https://cloud.google.com/container-registry/docs/advanced-authentication) and [here](https://support.google.com/cloud/answer/6158849#serviceaccounts)
