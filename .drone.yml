@@ -8,5 +8,3 @@ pipeline:
       - latest
       - ${DRONE_COMMIT}
     secrets: [ GOOGLE_TOKEN ]
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock

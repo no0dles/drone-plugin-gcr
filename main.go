@@ -32,13 +32,18 @@ func main() {
 
 	StartDocker()
 
+	fmt.Printf("Pull docker image %v:%v\n", repo, cacheFrom)
+	if !IsEmpty(cacheFrom) {
+		ExecuteCommand("docker", "pull", GetImage(registry, repo, cacheFrom))
+	}
+
 	tags := strings.Split(tagList, ",")
 	args := []string{"build", "-f", dockerfile}
 	if !IsEmpty(cacheFrom) {
-		args = append(args, "--cache-from", fmt.Sprintf("%v/%v:%v", registry, repo, cacheFrom))
+		args = append(args, "--cache-from", GetImage(registry, repo, cacheFrom))
 	}
 	for _, tag := range tags {
-		args = append(args, "-t", fmt.Sprintf("%v/%v:%v", registry, repo, tag))
+		args = append(args, "-t", GetImage(registry, repo, tag))
 	}
 	args = append(args, buildPath)
 
@@ -53,6 +58,10 @@ func main() {
 		fmt.Printf("Pushing image %v\n", image)
 		ExecuteCommand("docker", "push", image)
 	}
+}
+
+func GetImage(registry string, repo string, tag string) string {
+	return fmt.Sprintf("%v/%v:%v", registry, repo, tag)
 }
 
 func GetParameter(name string, defaultValue string) string {
